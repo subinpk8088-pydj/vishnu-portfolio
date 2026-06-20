@@ -1,19 +1,22 @@
-import Particles from "react-tsparticles";
+import { useCallback } from "react";
+import Particles from "@tsparticles/react";
+import { loadSlim } from "@tsparticles/slim";
 
 export default function ParticlesBackground() {
+  const particlesInit = useCallback(async (engine) => {
+    await loadSlim(engine);
+  }, []);
+
   return (
     <Particles
+      init={particlesInit}
       options={{
         background: {
-          color: {
-            value: "#09090B",
-          },
+          color: { value: "#09090B" },
         },
         fpsLimit: 60,
         particles: {
-          color: {
-            value: "#f97316",
-          },
+          color: { value: "#f97316" },
           links: {
             color: "#27272A",
             distance: 150,
