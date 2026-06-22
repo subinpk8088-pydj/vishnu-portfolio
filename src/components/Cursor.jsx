@@ -1,46 +1,36 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef } from "react";
 
 export default function Cursor() {
-
-  const [position, setPosition] = useState({
-    x: 0,
-    y: 0,
-  });
+  const dot  = useRef(null);
+  const ring = useRef(null);
 
   useEffect(() => {
-
     const move = (e) => {
-      setPosition({
-        x: e.clientX,
-        y: e.clientY,
-      });
+      const { clientX: x, clientY: y } = e;
+      if (dot.current)  { dot.current.style.left  = x + "px"; dot.current.style.top  = y + "px"; }
+      if (ring.current) { ring.current.style.left = x + "px"; ring.current.style.top = y + "px"; }
+    };
+
+    const grow = () => {
+      if (ring.current) { ring.current.style.width = "56px"; ring.current.style.height = "56px"; ring.current.style.borderColor = "rgba(163,198,139,0.8)"; }
+    };
+    const shrink = () => {
+      if (ring.current) { ring.current.style.width = "32px"; ring.current.style.height = "32px"; ring.current.style.borderColor = "rgba(163,198,139,0.5)"; }
     };
 
     window.addEventListener("mousemove", move);
+    document.querySelectorAll("a, button").forEach(el => {
+      el.addEventListener("mouseenter", grow);
+      el.addEventListener("mouseleave", shrink);
+    });
 
-    return () =>
-      window.removeEventListener("mousemove", move);
-
+    return () => window.removeEventListener("mousemove", move);
   }, []);
 
   return (
-    <div
-      className="
-      fixed
-      top-0
-      left-0
-      w-6
-      h-6
-      rounded-full
-      pointer-events-none
-      z-[9999]
-      border
-      border-orange-400
-      backdrop-blur-sm
-      "
-      style={{
-        transform: `translate(${position.x - 12}px, ${position.y - 12}px)`,
-      }}
-    />
+    <>
+      <div ref={dot}  className="cursor-dot" />
+      <div ref={ring} className="cursor-ring" />
+    </>
   );
 }

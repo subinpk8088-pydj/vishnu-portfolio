@@ -1,16 +1,71 @@
 @import "tailwindcss";
+@import url("https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap");
 
 html {
   scroll-behavior: smooth;
 }
 
 body {
-  background: #09090b;
-  color: #fafafa;
-  font-family: "Outfit", sans-serif;
+  background: #0d110e;
+  color: #f5ead7;
+  font-family: "DM Sans", sans-serif;
   cursor: none;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: "Syne", sans-serif;
 }
 
 * {
   box-sizing: border-box;
+}
+
+/* Custom cursor */
+.cursor-dot {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 8px;
+  height: 8px;
+  background: #a3c68b;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  transition: transform 0.1s ease, background 0.2s;
+}
+
+.cursor-ring {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 32px;
+  height: 32px;
+  border: 1px solid rgba(163, 198, 139, 0.5);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9998;
+  transform: translate(-50%, -50%);
+  transition: transform 0.12s ease, width 0.2s ease, height 0.2s ease, border-color 0.2s;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 4px;
+}
+::-webkit-scrollbar-track {
+  background: #0d110e;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(163, 198, 139, 0.3);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(163, 198, 139, 0.6);
+}
+
+/* Selection */
+::selection {
+  background: rgba(163, 198, 139, 0.2);
+  color: #f5ead7;
 }
